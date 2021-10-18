@@ -14,6 +14,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var result :TextView
     var float = 0.0f
     var doub = 0.0
+    var res = 0.0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -37,8 +38,25 @@ class MainActivity : AppCompatActivity() {
             } else {
                 Toast.makeText(this, "Type float number!!", Toast.LENGTH_SHORT).show()
             }
-            var res =  doub * float
+            res =  doub * float
             result.text = "$res"
         }
+    }
+
+    //rotate device
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putDouble("res", res)
+        outState.putDouble("doub", doub)
+        outState.putFloat("float", float)
+
+    }
+    //rotate device
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        res= savedInstanceState.getDouble("res")
+        doub= savedInstanceState.getDouble("doub")
+        float= savedInstanceState.getFloat("float")
+        result.text = "$res"
     }
 }
